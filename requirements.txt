@@ -4,3 +4,4 @@ flask
 scikit-learn
 gunicorn
 dill
+ipykernel
