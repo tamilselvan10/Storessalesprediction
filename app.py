@@ -1,6 +1,7 @@
 from flask import Flask,request,jsonify,render_template
 import pickle
 import pandas as pd
+import numpy as np
 import dill
 
 
@@ -36,13 +37,11 @@ def predict_api():
 
 @app.route('/predict',methods=['POST'])
 def predict():
-    k=request.form.keys()
-    v=request.form.values()
-    data=pd.DataFrame(dict(zip(k,v)),index=[0])
-    print('datab:',data)
+    k1=list(request.form.keys())
+    v1=list(request.form.values())
+    data=pd.DataFrame(dict(zip(k1,v1)),index=[0])
     for col in d.keys():
         data[col]=data[col].astype(d[col])
-    print('data:',data.dtypes)
     output=model.predict(data)[0]
     print('output:',output)
     return render_template('home.html', prediction_text="The Sales is  {}".format(output))
